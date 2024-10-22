@@ -1,0 +1,32 @@
+<div class="container mt-3">
+
+    <h1>un</h1>
+  <h2>Employee List</h2>
+  <table class="table table-striped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Age</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Active</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="employees.length > 0; else loading">
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.lastName }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.age }}</td>
+        <td>{{ employee.gender }}</td>
+        <td>{{ employee.isActive ? 'Yes' : 'No' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<ng-template #loading >
+    <p class="text-center">Data not loaded</p>
+</ng-template>
