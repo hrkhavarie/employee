@@ -15,7 +15,7 @@
     </thead>
     <tbody *ngIf="employees.length > 0; else loading">
       <tr *ngFor="let employee of employees">
-        <td>{{ employee.name }}</td>
+        <td>{{ employee.firstName }}</td>
         <td>{{ employee.lastName }}</td>
         <td>{{ employee.email }}</td>
         <td>{{ employee.age }}</td>
