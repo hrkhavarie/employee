@@ -1,0 +1,77 @@
+<div class="container mt-5">
+  <h2>Add Employee</h2>
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6 ">
+        <div class="form-group">
+          <label for="employeeFirstName">First Name</label>
+          <input type="text" class="form-control"  placeholder="Enter first name" formControlName="firstName">
+          <span class="text-danger"  *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched">First Name is required</span>
+        </div>
+        <div class="form-group">
+          <label for="employeeLastName">Last Name</label>
+          <input type="text" class="form-control" placeholder="Enter last name" formControlName="lastName">
+          <span class="text-danger" *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched">Last Name is required</span>
+        </div>
+        <div class="form-group">
+          <label for="employeePhone">Phone</label>
+          <input type="text" class="form-control" formControlName="phone" placeholder="Enter phone number">
+          <span class="text-danger" *ngIf="employeeForm.get('phone')?.invalid && employeeForm.get('phone')?.touched">Phone is required</span>
+        </div>
+        <div class="form-group">
+          <label for="employeeEmail">Email address</label>
+          <input type="email"  class="form-control" formControlName="email" placeholder="Enter email">
+          <span class="text-danger" *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">Email is required</span>
+          <!-- <span class="text-danger" *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">Email is invalid</span> -->
+        </div>
+        <div class="form-group">
+          <label for="employeeAge">Age</label>
+          <input type="number" class="form-control" formControlName="EmpAge" placeholder="Enter age">
+          <span class="text-danger" *ngIf="employeeForm.get('EmpAge')?.invalid && employeeForm.get('EmpAge')?.touched">Age is required</span>
+          <!-- <span class="text-danger" *ngIf="employeeForm.get('EmpAge')?.invalid && employeeForm.get('EmpAge')?.touched">Age must be between 18 and 65</span> -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="employeeDOJ">Date of Joining</label>
+          <input type="date" class="form-control" formControlName="dateOfJoining">
+          <span class="text-danger" *ngIf="employeeForm.get('dateOfJoining')?.invalid && employeeForm.get('dateOfJoining')?.touched">Date of Joining is required</span>
+        </div>
+        <div class="form-group">
+          <label for="employeeGender">Gender</label>
+          <select class="form-control" formControlName="gender">
+            <option [ngValue]="0">Male</option>
+            <option [ngValue]="1">Female</option>
+            <option [ngValue]="2">Other</option>
+          </select>
+          <span class="text-danger" *ngIf="employeeForm.get('gender')?.invalid && employeeForm.get('gender')?.touched">Gender is required</span>
+        </div>
+        <div class="form-group">
+          <label for="employeeMaritalStatus">Marital Status</label>
+          <select class="form-control" formControlName="isMarried">
+            <option [ngValue]="true">Married</option>
+            <option [ngValue]="false">Single</option>
+          </select>
+          <span class="text-danger" *ngIf="employeeForm.get('isMarried')?.invalid && employeeForm.get('isMarried')?.touched">Marital Status is required</span>
+        </div>
+        <div class="form-group">
+          <label for="employeeStatus">Active Status</label>
+          <select class="form-control" formControlName="isActive">
+            <option [ngValue]="true">Active</option>
+            <option [ngValue]="false">Inactive</option>
+          </select>
+          <span class="text-danger" *ngIf="employeeForm.get('isActive')?.invalid && employeeForm.get('isActive')?.touched">Active Status is required</span>
+        </div>
+        <!-- <div class="form-group">
+          <label for="employeeDesignation">Designation</label>
+          <input type="text" class="form-control" formControlName="desId" placeholder="Enter designation">
+          <span class="text-danger" *ngIf="employeeForm.get('desId')?.invalid && employeeForm.get('desId')?.touched">Designation is required</span>
+        </div> -->
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3 " (click)="onSubmit()"  >
+      <i class="bi bi-save"></i>
+      Submit
+    </button>
+  </form>
+</div>

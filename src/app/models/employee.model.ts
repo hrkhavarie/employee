@@ -6,12 +6,22 @@ export interface Employee {
     lastName: string;
     phone:number;
     email: string;
-    age: number;
+    empAge: number;
     dateOfJoining: Date;
-    gender: number; 
+    gender: Gender; 
     isMarried: boolean;
     isActive: boolean;
     desId: number;
     designation: Designation;
+    selected: boolean;
+
   }
+
+  export enum Gender {
+    Male = 'Male',
+    Female = 'Female',
+    Other = 'Other'
+  }
+
+  
 
