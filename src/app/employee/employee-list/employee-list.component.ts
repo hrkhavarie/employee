@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee, Gender } from 'src/app/models/employee.model';
-import { EmployeeServeiceService } from '../employee.serveice';
+import { Employee, Gender } from '../../models/employee.model';
+import { EmployeeService } from '../employee.serveice';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
@@ -11,50 +12,49 @@ export class EmployeeListComponent implements OnInit {
   employees: Employee[] = [];
   Gender = Gender;
   selectedAll: boolean = false;
+  selected: Employee | undefined;
 
   constructor(
-    private employeeService: EmployeeServeiceService,
+    private employeeService: EmployeeService,
     private router: Router
-
   ) {}
 
   ngOnInit(): void {
-    this.getEmployees();
+    this.loadEmployees();
   }
-  selected: Employee | undefined;
-  selectEmployee(employee: Employee): number | undefined {
+
+  selectEmployee(employee: Employee): void {
     if (employee.selected) {
       this.selected = employee;
       console.log('Employee ID', employee.empId);
-      return employee.empId;
     } else {
-      console.log('Employee ID is not defined');
-      return undefined;
+      this.selected = undefined;
+      console.log('Employee deselected');
     }
   }
 
-  getEmployees() {
+  loadEmployees(): void {
     this.employeeService.getEmployees().subscribe({
-      next: (employees: Employee[]) => {
-        this.employees = employees.sort((a, b) => b.empId - a.empId);
-        console.log('Employees', employees);
+      next: (data: Employee[]) => {
+        this.employees = data.sort((a: Employee, b: Employee) => 
+          (b.empId ?? 0) - (a.empId ?? 0)
+        );
+        console.log('Employees', data);
       },
       error: (error: any) => {
-        console.log('Error in getting employees', error);
-      },
+        console.error('Error loading employees:', error);
+      }
     });
   }
 
- 
-
   deleteEmployee(id: number): void {
-    if (id !== null) {
+    if (confirm('Are you sure you want to delete this employee?')) {
       this.employeeService.deleteEmployee(id).subscribe({
         next: () => {
-          this.getEmployees();
+          this.loadEmployees();
         },
-        error: (err) => {
-          console.error('Error deleting employee:', err);
+        error: (error: any) => {
+          console.error('Error deleting employee:', error);
         }
       });
     }
@@ -64,11 +64,11 @@ export class EmployeeListComponent implements OnInit {
     return this.employees.some((e) => e.selected);
   }
 
-  toggleAllEmployees() {
+  toggleAllEmployees(): void {
     this.employees.forEach((e) => (e.selected = this.selectedAll));
   }
- 
-  navigateToEdit(id: number) {
+
+  navigateToEdit(id: number): void {
     this.router.navigate([`/employee/edit/${id}`]);
   }
 
