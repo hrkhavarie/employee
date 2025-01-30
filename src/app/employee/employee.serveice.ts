@@ -1,44 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Employee } from '../models/employee.model';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Employee } from '../models/employee.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeServeiceService {
-  private apiUrl = 'https://localhost:7098/api/Employee';
+export class EmployeeService {
+  private baseUrl = environment.apiUrl;
 
   originalEmployees: Employee[] = [];
 
+  constructor(private http: HttpClient) { }
 
-  constructor(
-    private http: HttpClient,
-    
-  ) { }
-
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.apiUrl);
+  // Get all employees
+  getEmployees(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Employee`);
   }
 
-  getEmployee(id: number): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.apiUrl}/${id}`);
+  // Get employee by id
+  getEmployee(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Employee/${id}`);
   }
 
-  addEmployee(employee: Employee): Observable<Employee> {
-
-    return this.http.post<Employee>(`${this.apiUrl}`, employee);
-
+  // Create employee
+  createEmployee(employee: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Employee`, employee);
   }
 
-  updateEmployee(employee: Employee): Observable<Employee> {
-    console.log('Employee ID', employee.empId);
-    return this.http.put<Employee>(`${this.apiUrl}/${employee.empId}`, employee);
+  // Update employee
+  updateEmployee(id: number, employee: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/api/Employee/${id}`, employee);
   }
 
-  deleteEmployee(id: number): Observable<Employee> {
-    return this.http.delete<Employee>(`${this.apiUrl}/${id}`);
+  // Delete employee
+  deleteEmployee(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/api/Employee/${id}`);
   }
-
-
 }
