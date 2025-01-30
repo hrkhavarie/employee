@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:7223'  // Your local development API URL
+  apiUrl: 'https://localhost:5146'  // Matches the port where Swagger is running
 }; 

@@ -4,7 +4,7 @@ export interface Employee {
     empId: number;
     firstName: string;
     lastName: string;
-    phone:number;
+    phone: number;
     email: string;
     empAge: number;
     dateOfJoining: Date;
@@ -14,14 +14,12 @@ export interface Employee {
     desId: number;
     designation: Designation;
     selected: boolean;
+}
 
-  }
-
-  export enum Gender {
-    Male = 'Male',
-    Female = 'Female',
-    Other = 'Other'
-  }
+export enum Gender {
+    Male = 0,
+    Female = 1
+}
 
   
 
